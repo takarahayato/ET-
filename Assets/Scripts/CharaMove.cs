@@ -46,6 +46,7 @@ public class CharaMove : MonoBehaviour
 		if (isGround) {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				this.rb.AddForce (transform.up * this.jumpForce);
+				Debug.Log("使われちゃってるよ!!!");
 				isGround = false;
 			}
 		}
@@ -60,11 +61,11 @@ public class CharaMove : MonoBehaviour
 	
 	}
  
-	// void ChangeState(){
-	// 	// 空中にいるかどうかの判定。上下の速度(rigidbody.velocity)が一定の値を超えている場合、空中とみなす
-	// 	if (Mathf.Abs (rb.velocity.y) > jumpThreshold) {
-	// 		isGround = false;
-	// 	}
+	void ChangeState(){
+		// 空中にいるかどうかの判定。上下の速度(rigidbody.velocity)が一定の値を超えている場合、空中とみなす
+		if (Mathf.Abs (rb.velocity.y) > jumpThreshold) {
+			isGround = false;
+		}
  
 	// 	// 接地している場合
 	// 	if (isGround) {
@@ -125,7 +126,7 @@ public class CharaMove : MonoBehaviour
 	// 		// 状態の変更を判定するために状態を保存しておく
 	// 		prevState = state;
 	// 	}
-	// }
+	}
  
 	
  
