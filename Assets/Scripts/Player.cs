@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
+    
     {
         isGround = ground.IsGround();
 
@@ -78,5 +80,9 @@ public class Player : MonoBehaviour
             xSpeed = 0.0f;
         }
         rb.velocity = new Vector2(xSpeed, ySpeed);
+
+        if(transform.position.y < -5){
+            SceneManager.LoadScene("GameOver");
+        }
     }
 }
