@@ -159,7 +159,9 @@ MonoBehaviour:
   gravity: 10
   jumpSpeed: 10
   jumpHeight: 3
+  jumpLimitTime: 1
   ground: {fileID: 2138331494}
+  head: {fileID: 682952280}
 --- !u!95 &26265284
 Animator:
   serializedVersion: 3
