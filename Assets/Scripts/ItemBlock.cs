@@ -5,16 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class ItemBlock : MonoBehaviour
 {
+    public GameObject ItemImg;
     public string Item;
-    public GameObject Hatenatext;
+    private bool get_flag = false;
+    private int stop_counter = 0;
     // 2Dの場合は2Dが後ろに付く。
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("chara")){
-             Hatenatext.SetActive(true);
-            //  Debug.Log(Item);
+            Debug.Log(Item);
+            get_flag = true;
             // SceneManager.LoadScene("GameOver");
-          }
+        }
     }
 
 
@@ -31,6 +33,11 @@ public class ItemBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (get_flag && stop_counter <= 20)
+        {
+            ItemImg.transform.position += new Vector3(0, 0.03f, 0);
+            stop_counter += 1;
+        }
     }
 }

@@ -62,7 +62,7 @@ public class GroundCheck : MonoBehaviour
         if (collision.tag == groundTag)
         {
             isGroundExit = true; 
-            Debug.Log("exit");
+            // Debug.Log("exit");
         }
 
     }
