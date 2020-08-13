@@ -71,13 +71,13 @@ public class Player : MonoBehaviour
                 {
                     ySpeed = jumpSpeed;
                     jumpTime += Time.deltaTime;
-                    Debug.Log("働いてる？");
+                    // Debug.Log("働いてる？");
                 }
         else
                 {
                     isJump = false;
                     jumpTime = 0.0f; //New
-                    Debug.Log("働いてないよ");
+                    // Debug.Log("働いてないよ");
                 }
 
 
@@ -85,11 +85,11 @@ public class Player : MonoBehaviour
         if (verticalKey > 0 && jumpPos + jumpHeight > transform.position.y)
         {
             ySpeed = jumpSpeed;
-            Debug.Log("判定できてるよ!!!");
+            // Debug.Log("判定できてるよ!!!");
         }
         else
         {
-            Debug.Log("2");
+            // Debug.Log("2");
             isJump = false;
             jumpTime = 0.0f; //New
         }
