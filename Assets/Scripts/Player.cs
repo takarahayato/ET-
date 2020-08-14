@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Goal")){
             GoalText.SetActive(true);
-            Invoke("finish", 3.0f);
+            Invoke("finish", 1.0f);
         }
     }
 
