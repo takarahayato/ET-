@@ -30,6 +30,14 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+
+     void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Goal")){
+            Debug.Log("Goal");
+            SceneManager.LoadScene("GameOver");
+        }
+    }
     // Update is called once per frame
     void FixedUpdate()
     
@@ -41,6 +49,8 @@ public class Player : MonoBehaviour
         float verticalKey = Input.GetAxis("Vertical");
         float xSpeed = 0.0f;
         float ySpeed = -gravity;
+
+       
 
         if(isGround)
         {

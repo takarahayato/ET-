@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - chara
+  - tree
+  - Goal
   layers:
   - Default
   - TransparentFX
