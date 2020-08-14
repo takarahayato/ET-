@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
     public float jumpHeight;
     public float jumpLimitTime;//ジャンプ制限時間 New
     public GroundCheck ground;
-
     public GroundCheck head;//頭ぶつけた判定 New
+    public GameObject GoalText;
 
     private Animator anim = null;
     private Rigidbody2D rb = null;
@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     private bool isHead = false; //New
     private bool isJump = false;
     private float jumpPos = 0.0f;
-
     private float jumpTime = 0.0f;//New
 
     // Start is called before the first frame update
@@ -28,16 +27,22 @@ public class Player : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        GoalText.SetActive(false);
     }
 
 
      void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Goal")){
-            Debug.Log("Goal");
-            SceneManager.LoadScene("GameOver");
+            GoalText.SetActive(true);
+            Invoke("finish", 3.0f);
         }
     }
+
+    void finish(){
+        SceneManager.LoadScene("Score");
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     
