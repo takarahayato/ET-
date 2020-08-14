@@ -9,19 +9,38 @@ public class Player : MonoBehaviour
     public float gravity;
     public float jumpSpeed;
     public float jumpHeight;
+    public float jumpLimitTime;//ジャンプ制限時間 New
     public GroundCheck ground;
+    public GroundCheck head;//頭ぶつけた判定 New
+    public GameObject GoalText;
 
     private Animator anim = null;
     private Rigidbody2D rb = null;
     private bool isGround = false;
+    private bool isHead = false; //New
     private bool isJump = false;
     private float jumpPos = 0.0f;
+    private float jumpTime = 0.0f;//New
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        GoalText.SetActive(false);
+    }
+
+
+     void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Goal")){
+            GoalText.SetActive(true);
+            Invoke("finish", 1.0f);
+        }
+    }
+
+    void finish(){
+        SceneManager.LoadScene("Score");
     }
 
     // Update is called once per frame
@@ -29,38 +48,68 @@ public class Player : MonoBehaviour
     
     {
         isGround = ground.IsGround();
+        isHead = head.IsGround(); //New 
 
         float horizontalKey = Input.GetAxis("Horizontal"); 
-        float vertikalKey = Input.GetAxis("Vertical");
+        float verticalKey = Input.GetAxis("Vertical");
         float xSpeed = 0.0f;
         float ySpeed = -gravity;
 
+       
+
         if(isGround)
         {
-            if (vertikalKey > 0)
+            if (verticalKey > 0)
             {
                 ySpeed = jumpSpeed;
                 jumpPos = transform.position.y;
                 isJump = true;
             }
             else
+
             {
                 isJump = false;
             }
         }
         else if(isJump)
         {
-            if (vertikalKey > 0 && jumpPos + jumpHeight > transform.position.y)
-            {
-                ySpeed = jumpSpeed;
-                Debug.Log("判定できてるよ!!!");
-            }
-            else
-            {
-                Debug.Log("2");
-                isJump = false;
-            }
+            //New
+            //上方向キーを押しているか
+            bool pushUpKey = verticalKey > 0;
+            //現在の高さが飛べる高さより下か
+            bool canHeight = jumpPos + jumpHeight > transform.position.y;
+            //ジャンプ時間が長くなりすぎてないか
+            bool canTime = jumpLimitTime > jumpTime;
+
+
+        if (pushUpKey && canHeight && canTime && !isHead)
+                {
+                    ySpeed = jumpSpeed;
+                    jumpTime += Time.deltaTime;
+                    // Debug.Log("働いてる？");
+                }
+        else
+                {
+                    isJump = false;
+                    jumpTime = 0.0f; //New
+                    // Debug.Log("働いてないよ");
+                }
+
+
+        
+        if (verticalKey > 0 && jumpPos + jumpHeight > transform.position.y)
+        {
+            ySpeed = jumpSpeed;
+            // Debug.Log("判定できてるよ!!!");
         }
+        else
+        {
+            // Debug.Log("2");
+            isJump = false;
+            jumpTime = 0.0f; //New
+        }
+        }
+    
 
         if (horizontalKey > 0) 
         {
@@ -86,3 +135,4 @@ public class Player : MonoBehaviour
         }
     }
 }
+
