@@ -26,6 +26,11 @@ public class GroundCheck : MonoBehaviour
         {
             isGround = true;
         }
+
+        if(isGroundEnter)
+        {
+            isGround = false;
+        }
         
         if(isGroundExit)
         {

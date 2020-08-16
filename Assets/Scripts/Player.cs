@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
             if (verticalKey > 0)
             {
                 ySpeed = jumpSpeed;
+                Debug.Log("1");
                 jumpPos = transform.position.y;
                 isJump = true;
             }
@@ -85,29 +86,35 @@ public class Player : MonoBehaviour
         if (pushUpKey && canHeight && canTime && !isHead)
                 {
                     ySpeed = jumpSpeed;
+                    anim.SetBool("player_jump", true);
+                    Debug.Log("if");
+
                     jumpTime += Time.deltaTime;
                     // Debug.Log("働いてる？");
                 }
         else
                 {
+                    anim.SetBool("player_jump", false);
                     isJump = false;
                     jumpTime = 0.0f; //New
+                    Debug.Log("else");
                     // Debug.Log("働いてないよ");
                 }
 
 
         
-        if (verticalKey > 0 && jumpPos + jumpHeight > transform.position.y)
-        {
-            ySpeed = jumpSpeed;
-            // Debug.Log("判定できてるよ!!!");
-        }
-        else
-        {
-            // Debug.Log("2");
-            isJump = false;
-            jumpTime = 0.0f; //New
-        }
+        // if (verticalKey > 0 && canHeight)
+        // {
+        //     ySpeed = jumpSpeed;
+        //     Debug.Log("3");
+
+        //     // Debug.Log("判定できてるよ!!!");
+        // }
+        // else
+        // {
+        //     isJump = false;
+        //     jumpTime = 0.0f; //New
+        // }
         }
     
 
